@@ -11,9 +11,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const res = await api.post("/users/login", { email, password });
-    login(res.data.user, res.data.token);
-    navigate("/");
+    try {
+      const res = await api.post("/user/login", { email, password });
+
+      login(res.data.user, res.data.token);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      alert("Login failed");
+    }
   };
 
   return (
