@@ -1,11 +1,10 @@
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./src/config/db.js");
-
+require("dotenv").config();
 const productRoutes = require("./src/routes/productRoutes.js");
 const userRoutes = require("./src/routes/userRoutes.js");
-const cartRoutes = require("./src/routes/cartRoutes.js");
+const cartRoutes = require(".//src/routes/cartRoutes.js");
 
 const app = express();
 connectDB();
