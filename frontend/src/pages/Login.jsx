@@ -12,7 +12,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await api.post("/user/login", { email, password });
+      const res = await api.post("http://localhost:5000/api/user/login", { email, password });
 
       login(res.data.user, res.data.token);
       navigate("/");

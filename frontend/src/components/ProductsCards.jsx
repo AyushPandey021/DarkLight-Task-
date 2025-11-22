@@ -1,41 +1,39 @@
-import React from 'react'
+import { useState, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
-export default function ProductCard({ product, onAdd }) {
+export default function ProductCard({ product }) {
+  const { addToCart } = useContext(CartContext);
+  const [liked, setLiked] = useState(false);
+
   return (
-    <div
-      style={{
-        width: "250px",
-        border: "1px solid #ccc",
-        padding: "15px",
-        borderRadius: "10px",
-        background: "#f5f5f5",
-      }}
-    >
+    <div className="bg-gray-900 rounded-xl p-4 shadow-lg hover:shadow-2xl transition relative border border-gray-700">
       <img
         src={product.image}
         alt={product.title}
-        style={{ width: "100%", height: "150px", objectFit: "cover" }}
+        className="w-full h-56 object-cover rounded-lg"
       />
 
-      <h3>{product.title}</h3>
-      <p>{product.description}</p>
-      <strong>₹{product.price}</strong>
+      {/* ❤️ Heart Button */}
+      <button
+        onClick={() => setLiked(!liked)}
+        className="absolute top-3 right-3 text-2xl transition"
+      >
+        <span className={liked ? "text-red-500" : "text-gray-300"}>♥</span>
+      </button>
+
+      <h3 className="text-lg font-bold text-white mt-3">{product.title}</h3>
+      <p className="text-gray-400 text-sm mt-1">{product.description}</p>
+
+      <p className="text-xl font-semibold text-cyan-400 mt-3">
+        ₹{product.price}
+      </p>
 
       <button
-        onClick={() => onAdd(product)}
-        style={{
-          width: "100%",
-          padding: "10px",
-          marginTop: "10px",
-          background: "black",
-          color: "white",
-          borderRadius: "5px",
-        }}
+        onClick={() => addToCart(product)}
+        className="mt-4 w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-2 rounded-lg transition"
       >
         Add to Cart
       </button>
     </div>
   );
 }
-
-

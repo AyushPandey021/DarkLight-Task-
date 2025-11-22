@@ -5,6 +5,8 @@ import Products from "./pages/Products.jsx";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
+import Signup from "./pages/Signup.jsx";
+import CreateProduct from "./pages/CreateProduct.jsx";
 
 function App() {
   return (
@@ -14,8 +16,11 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Products />} />
+                    <Route path="/create-product" element={<CreateProduct />} />
+
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>

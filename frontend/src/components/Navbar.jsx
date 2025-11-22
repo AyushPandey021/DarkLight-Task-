@@ -6,21 +6,33 @@ export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <nav style={{ padding: "15px", background: "#111", color: "#fff" }}>
-      <h2 style={{ display: "inline-block", marginRight: "20px" }}>
-        DarkLight Products
-      </h2>
+    <nav className="bg-gray-950 text-white px-6 py-4 flex justify-between items-center shadow-lg">
+      <h2 className="text-2xl font-bold">DarkLight Store</h2>
 
-      <Link to="/" style={{ marginRight: "20px", color: "#fff" }}>Products</Link>
-      <Link to="/cart" style={{ marginRight: "20px", color: "#fff" }}>Cart</Link>
+      <div className="flex gap-6">
+        <Link to="/" className="hover:text-cyan-400 transition">
+          Products
+        </Link>
+        <Link to="/cart" className="hover:text-cyan-400 transition">
+          Cart
+        </Link>
 
-      {user ? (
-        <button onClick={logout} style={{ background: "red", color: "#fff" }}>
-          Logout
-        </button>
-      ) : (
-        <Link to="/login" style={{ color: "#fff" }}>Login</Link>
-      )}
+        {user ? (
+          <button
+            onClick={logout}
+            className="bg-red-500 hover:bg-red-400 px-4 py-2 rounded-lg font-semibold"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className="bg-cyan-500 hover:bg-cyan-400 px-4 py-2 rounded-lg font-semibold text-black"
+          >
+            Login
+          </Link>
+        )}
+      </div>
     </nav>
   );
 }
