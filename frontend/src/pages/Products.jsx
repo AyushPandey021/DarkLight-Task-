@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 import { FaHeart } from "react-icons/fa";
 
 export default function Products() {
@@ -8,7 +9,10 @@ export default function Products() {
   const [showCreate, setShowCreate] = useState(false);
   const [wishlist, setWishlist] = useState({});
 
-  const { user, cart, addToCart } = useContext(AuthContext);
+
+  const { user } = useContext(AuthContext);
+const { cart, addToCart } = useContext(CartContext);
+
 
   const [form, setForm] = useState({
     title: "",
@@ -25,19 +29,21 @@ export default function Products() {
   useEffect(() => {
     loadProducts();
   }, []);
-
   const handleAddToCart = (product) => {
-    if (!user) {
-      alert("Please login first!");
-      return;
-    }
+  if (!user) {
+    alert("Please login first!");
+    return;
+  }
 
-    if (cart.some((item) => item._id === product._id)) {
-      return; // already added
-    }
+  if (cart.some((item) => item._id === product._id)) {
+    alert("Already in cart");
+    return;
+  }
 
-    addToCart(product);
-  };
+  addToCart(product);
+  alert("Added to cart!");
+};
+
 
   const handleCreate = async (e) => {
     e.preventDefault();

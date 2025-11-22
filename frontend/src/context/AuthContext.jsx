@@ -1,15 +1,17 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+export default function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
-  const [cart, setCart] = useState(
-    JSON.parse(localStorage.getItem("cart")) || []
-  );
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (savedUser) setUser(savedUser);
+
+    setAuthLoading(false);
+  }, []);
 
   const login = (userData) => {
     setUser(userData);
@@ -20,20 +22,11 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("user");
     localStorage.removeItem("cart");
-    setCart([]);
-  };
-
-  const addToCart = (product) => {
-    setCart((prev) => {
-      const newCart = [...prev, product];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return newCart;
-    });
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, cart, addToCart }}>
+    <AuthContext.Provider value={{ user, login, logout, authLoading }}>
       {children}
     </AuthContext.Provider>
   );
-};
+}

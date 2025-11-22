@@ -12,7 +12,7 @@ export default function CreateProduct() {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
 
-  // 🚫 PROTECT PAGE FROM UNAUTHORISED USER
+
   useEffect(() => {
     if (!user) {
       alert("Please login to create products");
